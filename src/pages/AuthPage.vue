@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { usePostAuthLogin, useSession } from '@/entities/session'
-
-const { mutateAsync: authLogin } = usePostAuthLogin()
-const session = useSession()
-
-const handlerAuthLogin = () => {
-  authLogin({
-    email: 'daniil@mail.ru',
-    password: '123456',
-  }).then((data) => {
-    session.updateSession({ accessToken: data.accessToken, refreshToken: data.refreshToken })
-  })
-}
+import { AuthLogin } from '../widgets/AuthLogin'
+import { AuthRegistration } from '../widgets/AuthRegistration'
 </script>
-
+Í
 <template>
-  <button @click="handlerAuthLogin">auth</button>
+  <div class="flex direction-horizontal gap-10">
+    <AuthLogin />
+    <AuthRegistration />
+  </div>
 </template>
 
 <style scoped></style>

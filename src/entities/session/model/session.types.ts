@@ -3,6 +3,10 @@ export interface IAuthLogin {
   password: string
 }
 
+export interface IAuthRegister extends IAuthLogin {
+  roleId: number
+}
+
 export interface ISession {
   accessToken: string
   refreshToken: string
