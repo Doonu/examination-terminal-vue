@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '@/pages/HomePage.vue'
-import AuthPage from '@/pages/AuthPage.vue'
+import HomePage from '@/pages/home-page.vue'
+import AuthPage from '@/pages/auth-page.vue'
 import { useSession } from '@/entities/session'
 import { createPinia, setActivePinia } from 'pinia'
 
