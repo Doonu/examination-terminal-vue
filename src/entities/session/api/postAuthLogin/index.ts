@@ -1,9 +1,12 @@
-import type { IAuthLogin, ISession } from '@/entities/session'
+import type { APISession, IAuthLogin, ISession } from '@/entities/session'
 import { API } from '@/shared/config'
 import { useMutation } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import type { APISession } from './postAuthLogin.types'
+import { validationSchema } from './postAuthLogin.validation'
 import { postAuthLoginConversation } from './postAuthLogin.conversation'
+import { AxiosError } from 'axios'
+import { DetailsError, type IError } from '@/shared/api'
+import type { ValidationError } from 'yup'
 
 export const postAuthLoginKey = 'postAuthLogin'
 
@@ -19,7 +22,21 @@ const postAuthLogin = async ({ password, email }: IAuthLogin): Promise<ISession>
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     data: formData,
-  }).then(({ data }) => postAuthLoginConversation(data))
+  })
+    .then(async ({ data }) => {
+      const validate = await validationSchema.validate(data, { abortEarly: false })
+      return postAuthLoginConversation(validate)
+    })
+    .catch((error: AxiosError<IError> | ValidationError) => {
+      if (error instanceof AxiosError) {
+        throw new DetailsError('/orders/getOrders', {
+          status: error.response?.status,
+          error: { errorID: error.response?.data.ErrorID, message: error.response?.data.Message },
+        })
+      }
+      const validation = error.inner.map((error) => error.message)
+      throw new DetailsError('/orders/getOrders', { validation })
+    })
 }
 
 export const usePostAuthLogin = () =>

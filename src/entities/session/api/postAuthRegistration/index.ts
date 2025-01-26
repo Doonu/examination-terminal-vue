@@ -1,9 +1,13 @@
 import type { IAuthRegister, ISession } from '@/entities/session'
 import { API } from '@/shared/config'
-import type { APISession } from '@/entities/session/api/postAuthLogin/postAuthLogin.types.ts'
-import { postAuthLoginConversation } from '@/entities/session/api/postAuthLogin/postAuthLogin.conversation.ts'
+import type { APISession } from '@/entities/session'
 import { useMutation } from '@tanstack/vue-query'
 import { computed } from 'vue'
+import { postAuthRegistrationConversation } from './postAuthRegistration.conversation'
+import { validationSchema } from './postAuthRegistration.validation'
+import { AxiosError } from 'axios'
+import type { ValidationError } from 'yup'
+import { DetailsError, type IError } from '@/shared/api'
 
 export const postAuthRegistrationKey = 'postAuthRegistration'
 
@@ -24,7 +28,21 @@ const postAuthRegistration = async ({
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     data: formData,
-  }).then(({ data }) => postAuthLoginConversation(data))
+  })
+    .then(async ({ data }) => {
+      const validate = await validationSchema.validate(data, { abortEarly: false })
+      return postAuthRegistrationConversation(validate)
+    })
+    .catch((error: AxiosError<IError> | ValidationError) => {
+      if (error instanceof AxiosError) {
+        throw new DetailsError('/orders/getOrders', {
+          status: error.response?.status,
+          error: { errorID: error.response?.data.ErrorID, message: error.response?.data.Message },
+        })
+      }
+      const validation = error.inner.map((error) => error.message)
+      throw new DetailsError('/orders/getOrders', { validation })
+    })
 }
 
 export const usePostAuthRegistration = () =>
