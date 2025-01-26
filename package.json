@@ -13,16 +13,19 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
     "@tanstack/vue-query": "^5.62.9",
     "@tanstack/vue-query-devtools": "^5.62.9",
     "@tanstack/vue-virtual": "^3.11.2",
     "axios": "^1.7.9",
     "pinia": "^2.3.0",
     "pinia-plugin-persistedstate": "^4.2.0",
+    "vee-validate": "^4.15.0",
     "vite-plugin-vuetify": "^2.0.4",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
-    "vuetify": "^3.7.7"
+    "vuetify": "^3.7.7",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",

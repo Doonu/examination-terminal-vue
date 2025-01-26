@@ -1,3 +1,4 @@
+import 'vuetify/styles'
 import '@/shared/assets/main.css'
 
 import { createApp } from 'vue'
@@ -14,10 +15,10 @@ import 'vuetify/styles'
 const app = createApp(App)
 
 app.use(VueQueryPlugin, { queryClient })
+app.use(router)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
-app.use(router)
 app.use(vuetify)
 
 app.mount('#app')

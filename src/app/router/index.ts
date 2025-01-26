@@ -2,11 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/pages/HomePage.vue'
 import AuthPage from '@/pages/AuthPage.vue'
 import { useSession } from '@/entities/session'
+import { createPinia, setActivePinia } from 'pinia'
 
-const isAuthenticated = () => {
-  const sessionStore = useSession()
-  return !!sessionStore.accessToken
-}
+const pinia = createPinia()
+setActivePinia(pinia)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,15 +25,18 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, from, next) => {
-  const authRequired = to.meta.requiresAuth
-  const loggedIn = isAuthenticated()
+router.beforeEach(async (to, from, next) => {
+  const sessionStore = useSession()
+  const loggedIn = !!sessionStore.accessToken
 
-  if (authRequired && !loggedIn) {
+  if (to.meta.requiresAuth && !loggedIn) {
     if (to.name !== 'auth') {
       return next({ name: 'auth' })
     }
-  } else if (to.name === 'auth' && loggedIn) {
+    return next()
+  }
+
+  if (to.name === 'auth' && loggedIn) {
     return next({ name: 'home' })
   }
 
