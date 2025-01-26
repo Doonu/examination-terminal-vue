@@ -1,14 +1,12 @@
 <script setup lang="ts">
 defineProps({
-  title: String,
-  body: String,
+  name: String,
 })
 </script>
 
 <template>
   <div class="flex flex-col gap-2.5a border p-2">
-    <h1 class="text-red-400">{{ title }}</h1>
-    <div class="overflow-hidden text-ellipsis whitespace-nowrap">{{ body }}</div>
+    <h1 class="text-red-400">{{ name }}</h1>
   </div>
 </template>
 

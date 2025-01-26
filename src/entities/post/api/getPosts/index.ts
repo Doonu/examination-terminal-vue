@@ -18,7 +18,7 @@ const getPosts = async ({ title }: IGetPostsParams): Promise<IPost[]> => {
 
 export const userGetPosts = ({ title }: IGetPostsParams): UseQueryReturnType<IPost[], unknown> => {
   return useQuery<IPost[]>({
-    queryKey: computed(() => [getPostsKey, title.value, 1]),
+    queryKey: computed(() => [getPostsKey, title.value]),
     queryFn: () => getPosts({ title }),
   })
 }

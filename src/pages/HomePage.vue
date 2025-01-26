@@ -1,11 +1,5 @@
-<script setup lang="ts">
-import { useCounterStore } from '@/shared/stores/counter.ts'
-
-const counterStore = useCounterStore()
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <p>Count: {{ counterStore.count }}</p>
-  <p>Double Count: {{ counterStore.doubleCount }}</p>
-  <button @click="counterStore.increment">Increment</button>
+  <div>home</div>
 </template>

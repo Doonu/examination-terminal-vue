@@ -1,11 +1,10 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed, type PropType, ref } from 'vue'
 import { useVirtualizer } from '@tanstack/vue-virtual'
-import type { IPost } from '@/entities/post'
 
 const props = defineProps({
   items: {
-    type: Array as PropType<IPost[]>,
+    type: Array as PropType<T[]>,
     required: false,
   },
   itemSize: {
