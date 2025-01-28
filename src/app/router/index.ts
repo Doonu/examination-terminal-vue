@@ -20,7 +20,6 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthPage,
-      meta: { requiresAuth: true },
     },
   ],
 })

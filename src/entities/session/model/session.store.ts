@@ -13,7 +13,12 @@ export const useSession = defineStore(
       refreshToken.value = session.refreshToken
     }
 
-    return { accessToken, refreshToken, updateSession }
+    const clearSession = () => {
+      accessToken.value = null
+      refreshToken.value = null
+    }
+
+    return { accessToken, refreshToken, updateSession, clearSession }
   },
   {
     persist: true,

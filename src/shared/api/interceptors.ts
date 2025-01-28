@@ -5,15 +5,22 @@ import axios, {
   type AxiosResponse,
   type InternalAxiosRequestConfig,
 } from 'axios'
+import { useSession } from '@/entities/session'
+import { refreshSession } from '@/entities/session/api/postAuthRefresh'
 
 const API: AxiosInstance = axios.create({
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
   },
 })
 
 const handlerRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-  const { method, url } = config
+  const { method, url, headers } = config
+  const { accessToken } = useSession()
+
+  if (!url?.startsWith('/api/v1/auth/')) {
+    headers.Authorization = `Bearer ${accessToken}`
+  }
 
   console.log(`🚀 [API] ${method?.toUpperCase()} ${url} | Request`)
 
@@ -33,6 +40,20 @@ const handlerError = (error: AxiosError | Error): Promise<AxiosError> => {
     const { message } = error
     const { method, url } = error.config as AxiosRequestConfig
     const { status } = (error.response as AxiosResponse) ?? {}
+    const { updateSession } = useSession()
+
+    if (status === 401) {
+      const { refreshToken, clearSession } = useSession()
+      const isAuthRequire = !url?.startsWith('/api/v1/auth/')
+
+      if (refreshToken && isAuthRequire) {
+        refreshSession({ refreshToken }).then((data) => {
+          updateSession(data)
+        })
+      } else {
+        clearSession()
+      }
+    }
 
     console.log(`🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${message}`)
   } else {

@@ -1,5 +1,5 @@
 import type { IRole } from '@/entities/role'
-import { API } from '@/shared/config'
+import { API } from '@/shared/api'
 import { useQuery, type UseQueryReturnType } from '@tanstack/vue-query'
 import { computed } from 'vue'
 

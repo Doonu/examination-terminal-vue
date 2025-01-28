@@ -1,5 +1,5 @@
 import type { IAuthRegister, ISession } from '@/entities/session'
-import { API } from '@/shared/config'
+import { API } from '@/shared/api'
 import type { APISession } from '@/entities/session'
 import { useMutation } from '@tanstack/vue-query'
 import { computed } from 'vue'
@@ -24,9 +24,6 @@ const postAuthRegistration = async ({
   return API<APISession>({
     url: '/api/v1/auth/registration',
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
     data: formData,
   })
     .then(async ({ data }) => {

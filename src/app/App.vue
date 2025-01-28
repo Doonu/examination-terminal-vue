@@ -4,20 +4,22 @@ import { ToggleTheme } from '@/features/toggle-theme'
 import { useSession } from '@/entities/session'
 import { watch } from 'vue'
 import router from '@/app/router'
+import { queryClient } from '@/shared/config'
 
 const sessionStore = useSession()
 
 watch(
   () => sessionStore.accessToken,
   (newToken) => {
+    queryClient.refetchQueries()
+
     if (newToken) {
       if (router.currentRoute.value.name === 'auth') {
         router.push({ name: 'home' })
       }
-    } else {
-      if (router.currentRoute.value.meta.requiresAuth) {
-        router.push({ name: 'auth' })
-      }
+    } else if (router.currentRoute.value.meta.requiresAuth) {
+      console.log('выход')
+      router.push({ name: 'auth' })
     }
   },
 )

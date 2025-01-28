@@ -1,5 +1,5 @@
 import type { APISession, IAuthLogin, ISession } from '@/entities/session'
-import { API } from '@/shared/config'
+import { API } from '@/shared/api'
 import { useMutation } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import { validationSchema } from './postAuthLogin.validation'
@@ -18,9 +18,6 @@ const postAuthLogin = async ({ password, email }: IAuthLogin): Promise<ISession>
   return API<APISession>({
     url: '/api/v1/auth/login',
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
     data: formData,
   })
     .then(async ({ data }) => {
