@@ -2,11 +2,11 @@ import type { APISession, IAuthLogin, ISession } from '@/entities/session'
 import { API } from '@/shared/api'
 import { useMutation } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import { validationSchema } from './postAuthLogin.validation'
-import { postAuthLoginConversation } from './postAuthLogin.conversation'
 import { AxiosError } from 'axios'
 import { DetailsError, type IError } from '@/shared/api'
 import type { ValidationError } from 'yup'
+import { sessionValidation } from '../../lib/session.validation'
+import { sessionConversation } from '../../lib/session.conversation'
 
 export const postAuthLoginKey = 'postAuthLogin'
 
@@ -21,8 +21,8 @@ const postAuthLogin = async ({ password, email }: IAuthLogin): Promise<ISession>
     data: formData,
   })
     .then(async ({ data }) => {
-      const validate = await validationSchema.validate(data, { abortEarly: false })
-      return postAuthLoginConversation(validate)
+      const validate = await sessionValidation.validate(data, { abortEarly: false })
+      return sessionConversation(validate)
     })
     .catch((error: AxiosError<IError> | ValidationError) => {
       if (error instanceof AxiosError) {

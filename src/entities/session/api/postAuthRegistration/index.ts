@@ -3,8 +3,8 @@ import { API } from '@/shared/api'
 import type { APISession } from '@/entities/session'
 import { useMutation } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import { postAuthRegistrationConversation } from './postAuthRegistration.conversation'
-import { validationSchema } from './postAuthRegistration.validation'
+import { sessionValidation } from '../../lib/session.validation'
+import { sessionConversation } from '../../lib/session.conversation'
 import { AxiosError } from 'axios'
 import type { ValidationError } from 'yup'
 import { DetailsError, type IError } from '@/shared/api'
@@ -27,8 +27,8 @@ const postAuthRegistration = async ({
     data: formData,
   })
     .then(async ({ data }) => {
-      const validate = await validationSchema.validate(data, { abortEarly: false })
-      return postAuthRegistrationConversation(validate)
+      const validate = await sessionValidation.validate(data, { abortEarly: false })
+      return sessionConversation(validate)
     })
     .catch((error: AxiosError<IError> | ValidationError) => {
       if (error instanceof AxiosError) {

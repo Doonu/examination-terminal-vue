@@ -1,9 +1,9 @@
 import { API, DetailsError, type IError } from '@/shared/api'
 import { type APISession, type ISession, useSession } from '@/entities/session'
-import { validationSchema } from '@/entities/session/api/postAuthRegistration/postAuthRegistration.validation.ts'
-import { postAuthRegistrationConversation } from '@/entities/session/api/postAuthRegistration/postAuthRegistration.conversation.ts'
 import { AxiosError } from 'axios'
 import type { ValidationError } from 'yup'
+import { sessionValidation } from '../../lib/session.validation'
+import { sessionConversation } from '../../lib/session.conversation'
 
 export const refreshSession = async ({
   refreshToken,
@@ -18,8 +18,8 @@ export const refreshSession = async ({
     },
   })
     .then(async ({ data }) => {
-      const validate = await validationSchema.validate(data, { abortEarly: false })
-      return postAuthRegistrationConversation(validate)
+      const validate = await sessionValidation.validate(data, { abortEarly: false })
+      return sessionConversation(validate)
     })
     .catch((error: AxiosError<IError> | ValidationError) => {
       if (error instanceof AxiosError) {
