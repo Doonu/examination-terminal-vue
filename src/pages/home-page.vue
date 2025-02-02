@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useGetProfile } from '@/entities/profile'
-
-const { data } = useGetProfile()
+import { CourseSearch } from '@/widgets/course-search'
 </script>
 
 <template>
-  <div>{{ data.id }}</div>
+  <div>
+    <course-search />
+  </div>
 </template>

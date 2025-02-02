@@ -13,11 +13,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@tanstack/vue-query": "^5.62.9",
     "@tanstack/vue-query-devtools": "^5.62.9",
     "@tanstack/vue-virtual": "^3.11.2",
     "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
     "pinia": "^2.3.0",
     "pinia-plugin-persistedstate": "^4.2.0",
     "vee-validate": "^4.15.0",
