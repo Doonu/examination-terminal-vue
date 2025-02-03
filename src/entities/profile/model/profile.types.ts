@@ -13,9 +13,9 @@ export interface APIProfile {
 export interface IProfile {
   id: number
   email: string
-  firstName: string
-  lastName: string
-  age: number
-  gender: 1 | 2
+  firstName: string | null
+  lastName: string | null
+  age: number | null
+  gender: 1 | 2 | null
   role: IRole
 }
