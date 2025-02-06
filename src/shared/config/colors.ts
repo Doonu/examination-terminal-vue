@@ -15,7 +15,7 @@ export const darkThemeColors = {
   primary: '#18181B',
   secondary: '#F5F5F5',
   bg: '#121212',
-  secondaryBg: '#18181B',
+  secondaryBg: '#242424',
   accent: '#878484FF',
   active: '#FFDE00',
   error: '#FF5252',

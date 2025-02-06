@@ -9,7 +9,7 @@ import { computed, type Ref } from 'vue'
 
 export const getCourseListKey = 'getCourseList'
 
-export const getCourseList = (search: Ref<string>): Promise<ICourse[]> => {
+export const getCourseList = async (search: Ref<string>): Promise<ICourse[]> => {
   return API<APICourse[]>({
     url: '/api/v1/course/',
     method: 'GET',
