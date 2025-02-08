@@ -12,7 +12,13 @@ const handlerLogout = () => {
     class="h-screen grid auto-rows-max gap-[15px] justify-center bg-primary pt-[150px] pl-[24px] pr-[24px]"
   >
     <div v-for="itemMenu in listNavigationMenu" :key="itemMenu.name">
-      <v-list-item :prepend-icon="itemMenu.icon" link :to="itemMenu.path" :title="itemMenu.label" />
+      <v-list-item
+        class="py-[12px] px-[20px]"
+        :prepend-icon="itemMenu.icon"
+        link
+        :to="itemMenu.path"
+        :title="itemMenu.label"
+      />
     </div>
 
     <div class="pt-[150px]">
@@ -31,8 +37,6 @@ const handlerLogout = () => {
     rgba(0, 0, 0, 0.8) 100%
   );
   border-radius: 4px !important;
-  padding: 12px 20px;
-  color: white;
 }
 </style>
 ч

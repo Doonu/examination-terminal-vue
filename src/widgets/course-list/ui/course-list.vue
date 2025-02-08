@@ -4,15 +4,15 @@ import { storeToRefs } from 'pinia'
 import CourseCard from '@/entities/course/ui/course-card.vue'
 
 const course = useCourseSearch()
-const { search } = storeToRefs(course)
+const { search, sortBy } = storeToRefs(course)
 
-const { data } = useGetCourseList(search)
+const { data } = useGetCourseList(search, sortBy)
 </script>
 
 <template>
   <div class="bg-primary grid gap-[32px] py-4 px-6 rounded-[16px]">
     <div class="flex justify-space-between">
-      <div>Курсы</div>
+      <div class="text-2xl">Курсы</div>
       <div>Title</div>
     </div>
     <div class="grid gap-[16px]">

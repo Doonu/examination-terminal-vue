@@ -3,12 +3,7 @@ import { ref } from 'vue'
 
 export const useCourseSearch = defineStore('searchCourse', () => {
   const search = ref<string>('')
+  const sortBy = ref<string>('name')
 
-  const setSearch = (value: string) => {
-    console.log(value)
-    search.value = value
-    console.log(search.value)
-  }
-
-  return { search, setSearch }
+  return { search, sortBy }
 })
