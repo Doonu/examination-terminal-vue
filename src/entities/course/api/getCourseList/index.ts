@@ -5,7 +5,7 @@ import type { APICourse, ICourse } from '@/entities/course'
 import { AxiosError } from 'axios'
 import type { ValidationError } from 'yup'
 import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
 
 export const getCourseListKey = 'getCourseList'
 

@@ -1,5 +1,5 @@
 import { array, ArraySchema, number, object, string } from 'yup'
-import type { APICourse } from '../../model/course.types'
+import type { APICourse } from '@/entities/course'
 import { getProfileValidation } from '@/entities/profile'
 
 export const getCourseListValidation: ArraySchema<APICourse[], object> = array(
