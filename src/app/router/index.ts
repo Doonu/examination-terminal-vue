@@ -3,9 +3,10 @@ import HomePage from '@/pages/home-page.vue'
 import AuthPage from '@/pages/auth-page.vue'
 import { useSession } from '@/entities/session'
 import { createPinia, setActivePinia } from 'pinia'
-import CoursePage from '@/pages/course-page.vue'
+import CourseListPage from '@/pages/course-list-page.vue'
 import DefaultLayout from '@/app/layout/default-layout.vue'
 import AuthLayout from '@/app/layout/auth-layout.vue'
+import CoursePage from '@/pages/course-page.vue'
 
 const pinia = createPinia()
 setActivePinia(pinia)
@@ -27,9 +28,19 @@ const router = createRouter({
     },
     {
       path: '/courses',
-      name: 'courses',
-      component: CoursePage,
       meta: { requiresAuth: true, layout: DefaultLayout },
+      children: [
+        {
+          path: '',
+          name: 'courses',
+          component: CourseListPage, // /courses
+        },
+        {
+          path: ':id',
+          name: 'course-item',
+          component: CoursePage, // /courses/2
+        },
+      ],
     },
   ],
 })

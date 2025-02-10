@@ -1,4 +1,5 @@
 import type { APIProfile, IProfile } from '@/entities/profile'
+import type { APITest, ITest } from '@/entities/test'
 
 export interface APICourse {
   id: number
@@ -7,6 +8,7 @@ export interface APICourse {
   teacher_id: number
   teacher: APIProfile
   students: APIProfile[]
+  tests: APITest[]
 }
 
 export interface ICourse {
@@ -16,4 +18,5 @@ export interface ICourse {
   teacherId: number
   teacher: IProfile
   students: IProfile[]
+  tests: ITest[]
 }

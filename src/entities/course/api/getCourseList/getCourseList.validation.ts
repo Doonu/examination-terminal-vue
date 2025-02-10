@@ -1,14 +1,6 @@
-import { array, ArraySchema, number, object, string } from 'yup'
+import { array, ArraySchema } from 'yup'
 import type { APICourse } from '@/entities/course'
-import { getProfileValidation } from '@/entities/profile'
+import { getCourseValidation } from '../../lib/getCourse.validation'
 
-export const getCourseListValidation: ArraySchema<APICourse[], object> = array(
-  object({
-    id: number().required(),
-    name: string().required(),
-    description: string().required(),
-    teacher_id: number().required(),
-    teacher: getProfileValidation,
-    students: array(getProfileValidation).required(),
-  }).required(),
-).required()
+export const getCourseListValidation: ArraySchema<APICourse[], object> =
+  array(getCourseValidation).required()

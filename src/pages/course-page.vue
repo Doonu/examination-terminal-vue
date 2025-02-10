@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { CourseList } from '@/widgets/course-list'
-import { CourseSearch } from '@/widgets/course-search'
+import { useRoute } from 'vue-router'
+import { useGetCourse } from '@/entities/course'
+
+const route = useRoute()
+const courseId = route.params.id
+
+const { data: course } = useGetCourse(courseId.toString())
 </script>
 
 <template>
-  <div class="grid gap-[32px]">
-    <course-search />
-    <course-list />
+  <div class="bg-secondaryBg rounded-[8px] p-[16px]">
+    <div class="grid">
+      <span>{{ course?.name }}</span>
+      <span>{{ course?.description }}</span>
+    </div>
   </div>
 </template>
 

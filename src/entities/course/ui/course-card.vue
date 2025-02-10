@@ -8,13 +8,15 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex justify-space-between bg-secondaryBg p-[16px] rounded-[8px]">
-    <div class="grid">
-      <span>{{ course.name }}</span>
-      <span class="text-accent">{{ course.description }}</span>
+  <router-link :to="`/courses/${course.id}`">
+    <div class="flex justify-space-between bg-secondaryBg p-[16px] rounded-[8px]">
+      <div class="grid">
+        <span>{{ course.name }}</span>
+        <span class="text-accent">{{ course.description }}</span>
+      </div>
+      <radial-bar-chart />
     </div>
-    <radial-bar-chart />
-  </div>
+  </router-link>
 </template>
 
 <style scoped></style>
