@@ -1,4 +1,4 @@
-import type { APICourse, ICourse } from '../model/course.types'
+import type { APICourse, ICourse } from '@/entities/course'
 import { getProfileConversation } from '@/entities/profile'
 import { testConversation } from '@/entities/test'
 

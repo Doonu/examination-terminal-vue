@@ -1,5 +1,5 @@
-import type { APICourse, ICourse } from '../../model/course.types'
-import { getCourseConversation } from '../../lib/getCourse.conversation'
+import type { APICourse, ICourse } from '@/entities/course'
+import { getCourseConversation } from '@/entities/course'
 
 export const getCourseListConversation = (courses: APICourse[]): ICourse[] =>
   courses.map((course) => getCourseConversation(course))
