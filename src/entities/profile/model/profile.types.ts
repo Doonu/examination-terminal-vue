@@ -19,3 +19,10 @@ export interface IProfile {
   gender: 1 | 2 | null
   role: IRole
 }
+
+export interface IUpdateProfile {
+  firstName: string
+  lastName: string
+  age: number
+  gender: 1 | 2
+}

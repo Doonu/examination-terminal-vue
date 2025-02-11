@@ -1,9 +1,8 @@
 import { API } from '@/shared/api'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import type { APIProfile, IProfile } from '../../model/profile.types'
-import { getProfileValidation } from './getProfile.validation'
-import { getProfileConversation } from './getProfile.conversation'
+import type { APIProfile, IProfile } from '@/entities/profile'
+import { getProfileValidation, getProfileConversation } from '@/entities/profile'
 
 export const getProfileKey = 'getProfile'
 
