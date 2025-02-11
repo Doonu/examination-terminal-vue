@@ -12,7 +12,7 @@ const { data } = useGetCourseList(search, sortBy)
 <template>
   <div class="bg-primary grid gap-[32px] py-4 px-6 rounded-[16px]">
     <div class="flex justify-space-between">
-      <div class="text-2xl">Курсы</div>
+      <div class="text-2xl">Мои Курсы</div>
     </div>
     <div class="grid gap-[16px]">
       <course-card v-for="item in data" :key="item.id" :course="item" />
