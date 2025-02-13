@@ -6,7 +6,9 @@ import CourseCard from '@/entities/course/ui/course-card.vue'
 const course = useCourseSearch()
 const { search, sortBy } = storeToRefs(course)
 
-const { data } = useGetCourseList(search, sortBy)
+const { data, isError } = useGetCourseList(search, sortBy)
+
+const title = isError ? 'Что-то пошло не так' : 'У вас нет ни одного курса'
 </script>
 
 <template>
@@ -16,6 +18,11 @@ const { data } = useGetCourseList(search, sortBy)
     </div>
     <div class="grid gap-[16px]">
       <course-card v-for="item in data" :key="item.id" :course="item" />
+      <v-empty-state
+        v-show="!data?.length || isError"
+        icon="mdi-magnify"
+        :title="title"
+      ></v-empty-state>
     </div>
   </div>
 </template>

@@ -9,6 +9,7 @@ import ru from 'dayjs/locale/ru'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 import DefaultLayout from './layout/default-layout.vue'
+import duration from 'dayjs/plugin/duration'
 
 const sessionStore = useSession()
 const route = useRoute()
@@ -16,6 +17,7 @@ const route = useRoute()
 dayjs.locale(ru)
 dayjs.extend(utc)
 dayjs.extend(timezone)
+dayjs.extend(duration)
 
 watch(
   () => sessionStore.accessToken,

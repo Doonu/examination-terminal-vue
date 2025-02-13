@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useGetCourse } from '@/entities/course'
-import dayjs from 'dayjs'
+import { TestCourseCard } from '@/entities/test'
 
 const route = useRoute()
 const courseId = route.params.id
@@ -19,11 +19,8 @@ const { data: course } = useGetCourse(courseId.toString())
 
       <div class="text-xl pb-[20px] pt-[20px]">Тесты курса</div>
 
-      <div v-for="item in course?.tests" :key="item.id" class="grid grid-cols-[1fr_repeat(3,1fr)]">
-        <div class="border-secondary border-[1px] p-[8px] rounded-[8px]">
-          <div>Название теста: {{ item.name }}</div>
-          <div>{{ item.timeLimit }}</div>
-        </div>
+      <div class="grid grid-cols-[1fr_repeat(1,1fr)] gap-[16px]">
+        <test-course-card v-for="item in course?.tests" :key="item.id" :test="item" />
       </div>
     </div>
     <div class="bg-secondaryBg rounded-[8px] p-[16px] flex flex-col gap-[20px]">
