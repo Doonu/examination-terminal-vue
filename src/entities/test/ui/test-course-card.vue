@@ -2,7 +2,7 @@
 import type { ITest } from '@/entities/test'
 import dayjs from 'dayjs'
 
-const props = defineProps<{ test: ITest }>()
+const props = defineProps<{ test: ITest; courseId: number }>()
 
 const time = dayjs.duration(props.test.timeLimit, 'seconds')
 const timeLimit = time.format('H час mm минут')
@@ -17,7 +17,9 @@ const timeLimit = time.format('H час mm минут')
       <div>Время: {{ timeLimit }}</div>
     </div>
     <div>
-      <v-btn color="active">Перейти в тест</v-btn>
+      <v-btn :to="`/courses/${courseId}/progress-test/${props.test.id}`" color="active"
+        >Перейти в тест</v-btn
+      >
     </div>
   </div>
 </template>

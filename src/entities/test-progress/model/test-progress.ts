@@ -1,4 +1,3 @@
-import type { APIProfile, IProfile } from '@/entities/profile'
 import type { APITest, ITest } from '@/entities/test'
 
 export interface APITestProgress {
@@ -6,13 +5,18 @@ export interface APITestProgress {
   status: number
   attempt_date: number | null
   count_current_answer: number | null
-  course_id: number
   participant_id: number
   deadline_date: number
   timelimit: number
   id: number
-  participant: APIProfile
   test: APITest
+  result_test: {
+    id: number
+    text_question: string
+    options: string[]
+    correct_answer: string
+    student_answer: string | null
+  }[]
 }
 
 export interface ITestProgress {
@@ -21,10 +25,15 @@ export interface ITestProgress {
   status: number
   attemptDate: number | null
   countCurrentAnswer: number | null
-  courseId: number
   participantId: number
   deadlineDate: number
   timeLimit: number
-  participant: IProfile
   test: ITest
+  resultTest: {
+    id: number
+    textQuestion: string
+    options: string[]
+    correctAnswer: string
+    studentAnswer: string | null
+  }[]
 }

@@ -7,6 +7,7 @@ import CourseListPage from '@/pages/course-list-page.vue'
 import DefaultLayout from '@/app/layout/default-layout.vue'
 import AuthLayout from '@/app/layout/auth-layout.vue'
 import CoursePage from '@/pages/course-page.vue'
+import TestProgressPage from '@/pages/test-progress-page.vue'
 
 const pinia = createPinia()
 setActivePinia(pinia)
@@ -33,14 +34,19 @@ const router = createRouter({
         {
           path: '',
           name: 'courses',
-          component: CourseListPage, // /courses
+          component: CourseListPage,
         },
         {
           path: ':id',
           name: 'course-item',
-          component: CoursePage, // /courses/2
+          component: CoursePage,
         },
       ],
+    },
+    {
+      path: '/courses/:id/progress-test',
+      name: 'progress-test',
+      children: [{ path: ':id', name: 'progress-test-item', component: TestProgressPage }],
     },
   ],
 })

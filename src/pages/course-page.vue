@@ -20,7 +20,12 @@ const { data: course } = useGetCourse(courseId.toString())
       <div class="text-xl pb-[20px] pt-[20px]">Тесты курса</div>
 
       <div class="grid grid-cols-[1fr_repeat(1,1fr)] gap-[16px]">
-        <test-course-card v-for="item in course?.tests" :key="item.id" :test="item" />
+        <test-course-card
+          v-for="item in course?.tests"
+          :key="item.id"
+          :test="item"
+          :course-id="+courseId"
+        />
       </div>
     </div>
     <div class="bg-secondaryBg rounded-[8px] p-[16px] flex flex-col gap-[20px]">

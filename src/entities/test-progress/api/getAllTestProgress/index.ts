@@ -2,10 +2,10 @@ import { API, DetailsError, type IError } from '@/shared/api'
 import { computed, type Ref } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import type { APITestProgress, ITestProgress } from '@/entities/test-progress'
-import { testProgressValidation } from '@/entities/test-progress/lib/test-progress.validation.ts'
 import { AxiosError } from 'axios'
 import type { ValidationError } from 'yup'
-import { testProgressConversation } from '../../lib/test-progress.conversation'
+import { getAllTestProgressValidation } from './getAllTestProgress.validation'
+import { getAllTestProgressConversation } from './getAllTestProgress.conversation'
 
 const getAllTestProgressKey = 'getAllTestProgress'
 
@@ -18,8 +18,8 @@ export const getAllTestProgress = async (filterDate: Ref<number>): Promise<ITest
     },
   })
     .then(async ({ data }) => {
-      const validate = await testProgressValidation.validate(data, { abortEarly: false })
-      return testProgressConversation(validate)
+      const validate = await getAllTestProgressValidation.validate(data, { abortEarly: false })
+      return getAllTestProgressConversation(validate)
     })
     .catch((error: AxiosError<IError> | ValidationError) => {
       if (error instanceof AxiosError) {
