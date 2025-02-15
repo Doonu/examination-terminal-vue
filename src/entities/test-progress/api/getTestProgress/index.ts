@@ -39,6 +39,6 @@ export const getTestProgress = async ({
 
 export const useGetTestProgress = (args: IGetTestProgress) =>
   useQuery({
-    queryKey: [getTestProgressKey],
+    queryKey: [getTestProgressKey, args],
     queryFn: () => getTestProgress(args),
   })

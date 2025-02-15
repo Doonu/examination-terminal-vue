@@ -1,19 +1,21 @@
 import { API, DetailsError, type IError } from '@/shared/api'
-import { type APICourse, getCourseConversation, getCourseValidation } from '@/entities/course'
 import { AxiosError } from 'axios'
 import type { ValidationError } from 'yup'
 import { useQuery } from '@tanstack/vue-query'
+import { validationSchema } from './getCourseItem.validation'
+import type { APICourseInCourse, ICourseInCourse } from '@/entities/course'
+import { getCourseItemConversation } from './getCourseItem.conversation'
 
 export const getCourseItemKey = 'getCourseItem'
 
-export const getCourseItem = async (courseId: string) => {
-  return API<APICourse>({
+export const getCourseItem = async (courseId: string): Promise<ICourseInCourse> => {
+  return API<APICourseInCourse>({
     url: `/api/v1/course/${courseId}`,
     method: 'GET',
   })
     .then(async ({ data }) => {
-      const validate = await getCourseValidation.validate(data, { abortEarly: false })
-      return getCourseConversation(validate)
+      const validate = await validationSchema.validate(data, { abortEarly: false })
+      return getCourseItemConversation(validate)
     })
     .catch((error: AxiosError<IError> | ValidationError) => {
       if (error instanceof AxiosError) {
