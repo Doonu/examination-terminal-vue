@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { useRoute } from 'vue-router'
 import { usePostStartTest } from '@/entities/test-progress'
 import { queryClient } from '@/shared/config'
-import { initialValue, updateTime } from '../lib/time'
+import { initialValue } from '@/entities/test-progress'
 
 const route = useRoute()
 const params = route.params.id[0]
@@ -21,6 +21,27 @@ const timeLimit = time.format('H ч mm м')
 
 let timeInterval: number
 
+const updateTime = () => {
+  if (!testProgress.value?.deadlineDate) return
+  const targetDate = testProgress.value.deadlineDate * 1000
+
+  const now = +new Date()
+  const diff = targetDate - now
+
+  if (diff < 0) {
+    clearInterval(timeInterval)
+    timeLeft.value = initialValue
+    return
+  }
+
+  timeLeft.value = {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
+  }
+}
+
 const handlerStartTest = () => {
   startTest().then(() => {
     queryClient.refetchQueries({ queryKey: [getTestProgressKey] })
@@ -28,7 +49,7 @@ const handlerStartTest = () => {
 }
 
 onMounted(() => {
-  updateTime(timeLeft, timeInterval, testProgress.value?.deadlineDate)
+  updateTime()
   timeInterval = setInterval(updateTime, 1000)
 })
 </script>
